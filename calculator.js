@@ -39,19 +39,78 @@ let result = 0;
 const numberBtn = document.querySelectorAll(".number");
 let display = document.querySelector("#display > div");
 let clearBtn = document.querySelector("#clear");
+let operator = document.querySelectorAll(".operator");
+let equalBtn = document.querySelector("#equalBtn");
+let num1= null;
+let num2 = null;
+let operatorType = null;
+let operatorPressed = false;
+let count = 0;  // represents how many times an operator has been pressed
+
+
+
+operator.forEach(button => button.addEventListener("click" , () =>{
+
+    count++;
+
+    /* If the operator event happens twice the current number in the display becomes 
+    num2 and the result of operate() populates the display */
+    if (count == 2){ 
+        num2 = parseInt(display.textContent);
+        display.textContent = operate(num1,num2,operatorType);
+        count--;
+       
+    }
+    
+    // the result from operate() becomes num1 
+    num1 = parseInt(display.textContent);
+    operatorType = button.textContent;
+
+   
+    
+
+
+    operatorPressed = true;
+
+}
+
+));
+
+equalBtn.addEventListener("click" , () => {
+   
+    num2 = parseInt(display.textContent);
+    display.textContent = operate(num1,num2,operatorType);
+
+    operatorPressed = false;
+    count = 0;
+   
+
+});
+
+
 
 
 
 //attatch click event listener to each button
 numberBtn.forEach(button => button.addEventListener("click" , () => {
 
-    let currentDisplay = display.textContent;
+    if(operatorPressed == true){
 
-    display.textContent = currentDisplay +""+ document.getElementById(button.id).textContent;
+        display.textContent = "";
+        operatorPressed = false;
+    }
+   
+
+    display.textContent += ""+ document.getElementById(button.id).textContent;
 
 }));
 
+
+
+
 clearBtn.addEventListener("click" , () => {
+
+
     display.innerHTML = "";
 });
 
