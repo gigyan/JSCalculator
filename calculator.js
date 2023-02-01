@@ -83,6 +83,8 @@ equalBtn.addEventListener("click" , () => {
 
     operatorPressed = false;
     count = 0;
+
+
    
 
 });
@@ -112,5 +114,8 @@ clearBtn.addEventListener("click" , () => {
 
 
     display.innerHTML = "";
+    num1 = null;
+    num2 = null;
+
 });
 
